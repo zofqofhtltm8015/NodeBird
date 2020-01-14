@@ -1,0 +1,26 @@
+{
+    "parserOptions":{
+        "ecmaVersion": 2018,
+        "sourceType": "module",
+        "ecmaFeatures":
+        {
+            "jsx": true
+        }
+    },
+
+"env":{
+    "browser": true, // browser을 사용합니까?
+    "node": true  // node를 사용합니까?
+},
+"extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+    // react로 코딩할때 코딩 스타일
+    ],
+    "plugins":[
+
+        "import",
+        "react-hooks"
+        // import와 react-hooks를 사용할 예정
+    ]
+}

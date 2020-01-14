@@ -3,6 +3,7 @@ import React,{ useState } from 'react';
 import {Form, Menu,Input, Button, Col,Row,Card,Avatar}  from 'antd';
 import Link from 'next/link';
 import LoginForm from './LoginForm';
+import UserProfile from './UserProfile';
 const dummy ={
     nickname: '최종근',
     Post: [],
@@ -23,30 +24,18 @@ const AppLayout = ({children}) =>
                   <Input.Search enterButton style={{verticalAlign: 'middle'}}/>
                </Menu.Item>
             </Menu>
-            <Row>
+            <Row gutter={10}>
     	<Col xs={24} md={6} >
+         {dummy.isLoggedin
+         ?
+                <UserProfile />
+         :
          
-        <Card
-
-            actions={[
-                <div key="twit">짹짹<br />{dummy.Post.length}</div>,
-                <div key="following">팔로잉<br />{dummy.Followings.length}</div>,
-                <div key="follower">팔로워<br />{dummy.Followers.length}</div>,
-                
-
-            ]}
-            >
-            <Card.Meta
-                avatar={<Avatar src="https://images.alphacoders.com/849/849018.png">{dummy.nickname[0]}</Avatar>}
-                title={dummy.nickname}
-            />
-         </Card>
-         
-                <LoginForm></LoginForm>
+                <LoginForm />}
 
         </Col>
 		<Col xs={24} md={12} >   {children}</Col>
-    	<Col xs={24} md={6} >세번째</Col>
+    	<Col xs={24} md={6} ><Link href="https://github.com/zofqofhtltlm8015"><a>For GiGESON</a></Link></Col>
 
 </Row>
          

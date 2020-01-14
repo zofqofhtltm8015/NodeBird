@@ -23,7 +23,7 @@ const LoginForm = () =>
     },[id,password]);
 return ( 
 
-                    <Form onSubmit={onSubmitForm}>
+                    <Form style={{padding: '10px'}}onSubmit={onSubmitForm}>
                     <div>
                         <label htmlFor="user-id" value >아이디</label>
                         <br />

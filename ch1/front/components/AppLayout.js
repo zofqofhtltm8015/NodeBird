@@ -4,17 +4,11 @@ import {Form, Menu,Input, Button, Col,Row,Card,Avatar}  from 'antd';
 import Link from 'next/link';
 import LoginForm from './LoginForm';
 import UserProfile from './UserProfile';
-const dummy ={
-    nickname: '최종근',
-    Post: [],
-    Followings: [],
-    Followers: [],
-    isLoggedin: false
-};
-
+import {useSelector} from 'react-redux';
 
 const AppLayout = ({children}) =>
 {
+    const {isLoggedIn} = useSelector(state=>state.user)
     return(
         <div>
             <Menu mode="horizontal">
@@ -26,16 +20,19 @@ const AppLayout = ({children}) =>
             </Menu>
             <Row gutter={10}>
     	<Col xs={24} md={6} >
-         {dummy.isLoggedin
+         {isLoggedIn
          ?
-                <UserProfile />
+         <UserProfile />
+
          :
-         
-                <LoginForm />}
+         <LoginForm />
+
+                
+                }
 
         </Col>
 		<Col xs={24} md={12} >   {children}</Col>
-    	<Col xs={24} md={6} ><Link href="https://github.com/zofqofhtltlm8015"><a>For GiGESON</a></Link></Col>
+    	<Col xs={24} md={6} ><Link href="//github.com/zofqofhtltlm8015"><a>For GiGESON</a></Link></Col>
 
 </Row>
          

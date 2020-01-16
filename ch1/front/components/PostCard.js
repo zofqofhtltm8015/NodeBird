@@ -2,10 +2,13 @@ import React from 'react';
 import { Input , Form, Button, Card, Icon, Avatar} from 'antd';
 import PropTypes from 'prop-types';
 
+import {useSelector} from 'react-redux';
+
 
 
 const PostCard = ({post}) =>
 {
+  
     return(                      
       <Card
         key={+post.createdAt}
@@ -19,8 +22,8 @@ const PostCard = ({post}) =>
         ]}
         extra={<Button>팔로우</Button>}
         >
-        <Card.Meta avatar={<Avatar>{post.User.nickname[0]}</Avatar>}
-        title={post.User.nickname}
+        <Card.Meta avatar={<Avatar>{post.user.nickname[0]}</Avatar>}
+        title={post.user.nickname}
         description={post.content}
         />
         </Card>

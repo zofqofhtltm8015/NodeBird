@@ -1,11 +1,13 @@
 import React,{useState,useCallback} from 'react';
 
 import { Form, Input,Checkbox,Button } from 'antd';
+import { useDispatch } from 'react-redux';
+import { signUpAction } from '../reducers/user';
 
  const signup = () =>
 {
 
-
+    const dispatch = useDispatch();
 
     const [id,setId] = useState('');
 
@@ -25,6 +27,15 @@ import { Form, Input,Checkbox,Button } from 'antd';
         {
             return setTermError(true);
         }
+        dispatch(signUpAction(
+            {
+                id,
+                nick,
+                password,
+                
+            }
+        ));
+
         console.log({
             id,
             nick,

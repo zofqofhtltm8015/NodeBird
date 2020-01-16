@@ -1,21 +1,11 @@
 import React from 'react';
 import { Input , Form, Button, Card, Icon, Avatar} from 'antd';
 
-const dummy = {
-    isLoggedIn: true,
-    imagePath: [],
-    mainPosts: [{
-        User:{
-            id: 1,
-            nickname: '제로초',
-        },
-        content: '첫 번째 게시글',
-        img: 'https://wallpapercave.com/wp/wp2195776.jpg',
-
-    }],
-};
+import{useSelector} from 'react-redux';
 const PostForm = () =>
-{return(
+{
+    const {imagePath} = useSelector(state=>state.post)
+    return(
            <Form style={{marginBottom: 20}}encType="multipart/form-data">
                 <Input.TextArea maxLength={140} style={{marginTop: 20}} placeholder="어떤 신기한 일이 있었나요?" />
                 <div>
@@ -25,7 +15,7 @@ const PostForm = () =>
                 
                 </div>
                 <div>
-                    {dummy.imagePath.map((v,i)=>
+                    {imagePath.map((v,i)=>
                     {
                         
                             <div key={v} style={{display: 'inline-block'}}>

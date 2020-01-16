@@ -1,5 +1,17 @@
 export const initalState ={
-    mainPosts: [],
+    
+        isLoggedIn: true,
+        imagePath: [],
+        mainPosts: [{
+            user:{
+                id: 1,
+                nickname: '제로초',
+            },
+            content: '첫 번째 게시글',
+            img: 'https://wallpapercave.com/wp/wp2195776.jpg',
+    
+        }],
+    
 };
 
 const ADD_POST = 'ADD_POST';
@@ -36,6 +48,13 @@ const reducer = (state = initalState, action) =>
                     mainPosts: [action.data,...state.mainPosts],
                 }
             };
+
+            default:
+                {
+                    return{
+                        ...state,
+                    }
+                }
     }
 };
 

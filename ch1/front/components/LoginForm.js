@@ -18,7 +18,7 @@ const LoginForm = () =>
     const dispatch = useDispatch();
     const [id, onChangeId] = useInput('');
     const [password, onChangePassword] = useInput('');
-    const  {isLoggingIn} = useSelector(state=> state.user);
+    const  {isLoading} = useSelector(state=> state.user);
 
     
 
@@ -51,7 +51,7 @@ return (
                         <Input name="user-password"  type="password" value={password} onChange={onChangePassword} required></Input>
                     </div>
                     <div>
-                        <Button type="primary" htmlType="submit" loading={isLoggingIn} style={{marginTop: '10px'}} loading={false}>로그인</Button>
+                        <Button type="primary" htmlType="submit" loading={true} style={{marginTop: '10px'}} loading={false}>로그인</Button>
                         <Button><Link href="/signup"><a>회원가입</a></Link></Button>
                     </div>
                     </Form>

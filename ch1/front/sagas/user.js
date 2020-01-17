@@ -17,7 +17,7 @@ function* login()
    // yield call(loginAPI);
     try{
     //    yield call(loginAPI);
-    yield delay(100);
+    yield delay(2000);
         yield put({
             type: LOG_IN_SUCCESS,
         })

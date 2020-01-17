@@ -10,7 +10,8 @@
 
 "env":{
     "browser": true, // browser을 사용합니까?
-    "node": true  // node를 사용합니까?
+    "node": true,  // node를 사용합니까?
+    "es6":true
 },
 "extends": [
     "eslint:recommended",
@@ -22,5 +23,8 @@
         "import",
         "react-hooks"
         // import와 react-hooks를 사용할 예정
-    ]
+    ],
+    "rules": {
+        "no-underscore-dangle": "off"
+    }
 }

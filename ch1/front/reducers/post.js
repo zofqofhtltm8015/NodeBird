@@ -1,7 +1,7 @@
 export const initalState ={
     
         isLoggedIn: true,
-        imagePath: [],
+        imagePath: [], //미리보기 이미지 경로
         mainPosts: [{
             user:{
                 id: 1,
@@ -25,6 +25,12 @@ export const LOAD_HASHING_POSTS_REQUEST = 'LOAD_HASHING_POSTS_REQUEST';
 export const LOAD_HASHING_POSTS_SUCCESS = 'LOAD_HASHING_POSTS_SUCCESS';
 export const LOAD_HASHING_POSTS_FAILURE = 'LOAD_HASHING_POSTS_FAILURE';
 
+
+export const LOAD_USER_POSTS_REQUEST = 'LOAD_HASHING_POSTS_REQUEST';
+export const LOAD_USER_POSTS_SUCCESS = 'LOAD_HASHING_POSTS_SUCCESS';
+export const LOAD_USER_POSTS_FAILURE = 'LOAD_HASHING_POSTS_FAILURE';
+
+
 export const UPLOAD_IMAGE_REQUEST = 'UPLOAD_IMAGE_REQUEST';
 export const UPLOAD_IMAGE_SUCCESS = 'UPLOAD_IMAGE_SUCCESS';
 export const UPLOAD_IMAGE_FAILURE = 'UPLOAD_IMAGE_FAILURE';
@@ -44,22 +50,23 @@ export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
 export const ADD_COMMENT_SUCUESS = 'ADD_COMMENT_SUCUESS';
 export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
 
-export const RETWEET_REQUREST = 'RETWEET_REQUREST';
+export const RETWEET_REQUEST = 'RETWEET_REQUEST';
 export const RETWEET_SUCCESS = 'RETWEET_SUCCESS';
 export const RETWEET_FAILURE = 'RETWEET_FAILURE';
 
-export const REMOVE_POST_REQUEST = 'REMOVE_POST_REQUREST';
+export const REMOVE_POST_REQUEST = 'REMOVE_POST_REQUEST';
 export const REMOVE_POST_SUCCESS = 'REMOVE_POST_SUCCESS';
-export const REMOVE_POST_REQUEST = 'REMOVE_POST_REQUREST';
+export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE';
 
+export const REMOVE_IMAGE = 'REMOVE_IMAGE';
 
-const ADD_POST_REQUSET = 'ADD_POST';
+const ADD_POST_REQUSET = 'ADD_POST_REQUSET';
 const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
 const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
 const ADD_DUMMY = 'ADD_DUMMY';
 
 export const addPost ={
-    type: ADD_POST,
+    type: ADD_POST_REQUSET,
 };
 
 export const addDummy = {

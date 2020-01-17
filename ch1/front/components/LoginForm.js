@@ -1,11 +1,11 @@
 import React,{useCallback,useState} from 'react';
 import Link from 'next/link';
 import {Form ,Input, Button, Col,Row,Card,Avatar}  from 'antd';
-import {loginAction, loginRequestAction, LOG_IN_REQUEST} from '../reducers/user';
+import { loginRequestAction, LOG_IN_REQUEST} from '../reducers/user';
 import {useSelector,useDispatch} from 'react-redux';
 const LoginForm = () =>
 {
-    export const  useInput = (initValue = null) =>
+     const  useInput = (initValue = null) =>
     {
         const [value,setter] = useState(initValue);
         const handler=useCallback((e)=>{
@@ -20,8 +20,11 @@ const LoginForm = () =>
     const [password, onChangePassword] = useInput('');
     const  {isLoggingIn} = useSelector(state=> state.user);
 
-    const onLogin = useCallback((e)=>
-    { 
+    
+
+    const onSubmitForm =useCallback((e) =>
+    {
+        e.preventDefault();
         dispatch({
             type: LOG_IN_REQUEST,
             data: {
@@ -29,15 +32,7 @@ const LoginForm = () =>
             },
         })
       
-    },[id,password]);
-  
 
-    const [id,onChangeId] = useInput('');
-    const [password,onChangePassword] = useInput('');
-    const onSubmitForm =useCallback((e) =>
-    {
-        e.preventDefault();
-        dispatch(loginAction);
         console.log({
             id,password,
         });
@@ -56,7 +51,7 @@ return (
                         <Input name="user-password"  type="password" value={password} onChange={onChangePassword} required></Input>
                     </div>
                     <div>
-                        <Button type="primary" htmlType="submit" loading={isLoggingIn} onClick={onLogin}style={{marginTop: '10px'}} loading={false}>로그인</Button>
+                        <Button type="primary" htmlType="submit" loading={isLoggingIn} style={{marginTop: '10px'}} loading={false}>로그인</Button>
                         <Button><Link href="/signup"><a>회원가입</a></Link></Button>
                     </div>
                     </Form>

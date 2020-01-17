@@ -7,10 +7,10 @@ export const initialState ={
     signedUp: false,
     isSigningUp: false,
     signUpErrorReason: '',
-    me : null,
     Followings: [],
     Followers: [],
     userInfo: null,
+    loginData: {},
 };
 const dummyUser =
 {
@@ -31,8 +31,8 @@ export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
 
 
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
-export const SIGN_UP_REQUEST = 'SIGN_UP_SUCCESS';
-export const SIGN_UP_FAILURE = 'SIGN_UP_SUCCESS';
+export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
+export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
 
 
 export const LOAD_FOLLOW_REQUEST = 'LOAD_FOLLOW_REQUEST';
@@ -58,8 +58,7 @@ export const signUpsuccess = {
 export const signUpAction= (data) =>
 {
     return { 
-
-        type:SIGN_UP,
+        type:SIGN_UP_REQUEST,
         data: data,
     }
 }
@@ -125,14 +124,38 @@ export const signRequestAction = data =>({
                     }
                 }
 
-        case SIGN_UP_REQUEST:
+            case SIGN_UP_REQUEST:
             {
                 return{
                     ...state,
-                    signUpData: action.data
+                    signedUp: false,
+                    isSigningUp: true,
+                    signUpErrorReason: '',
 
                 }
             }
+            case SIGN_UP_SUCCESS:
+            {
+                    return{
+                        ...state,
+                        signedUp: true,
+                        isSigningUp: false,
+                        signUpErrorReason: '',
+                    }
+            }
+            case SIGN_UP_FAILURE:
+            {
+                return{
+                    ...state,
+                    signedUp: false,
+                    isSigningUp: false,
+                    signUpErrorReason: action.error,
+
+                }
+
+            }
+
+
          default:
              {
                  return{

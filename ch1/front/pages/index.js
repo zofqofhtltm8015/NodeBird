@@ -8,20 +8,14 @@ import {LOG_IN,LOG_OUT,loginAction,logoutAction} from '../reducers/user'
 
 const Home = () =>
 {
-    const dispatch = useDispatch();
-  useEffect(() => {
-      dispatch({
-          type: 'LOG_IN_SUCCESS'
-      })
-     
-  },[]);
-    const {isLoggedIn, user} = useSelector(state=>state.user)
+   
+    const {isLoggedIn, me} = useSelector(state=>state.user)
     const {mainPosts} = useSelector(state=>state.post)
-    console.log(user);
+    console.log(me);
 
     return(
         <div>
-          {isLoggedIn ? <div>로그인 했습니다 :  {user.nickname} </div>: <div>로그아웃했습니다.</div>}
+          {isLoggedIn ? <div>로그인 했습니다 :  {me.nickname} </div>: <div>로그아웃했습니다.</div>}
             {isLoggedIn&& <PostForm />}
                 {mainPosts.map((c) =>
                 {

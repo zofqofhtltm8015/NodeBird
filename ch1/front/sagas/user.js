@@ -1,9 +1,8 @@
 import {all,fork,call,put,take,delay, takeLatest} from 'redux-saga/effects';
 import {
-    LOG_IN, LOG_OUT, LOG_IN_SUCCESS, LOG_IN_FAILURE, LOG_IN_REQUEST,
+    LOG_IN, LOG_OUT, LOG_IN_SUCCESS, LOG_IN_FAILURE, LOG_IN_REQUEST,SIGN_UP_SUCCESS,SIGN_UP_FAILURE,SIGN_UP_REQUEST
 } from '../reducers/user';
 import { takeEvery } from 'redux-saga/effects';
-
 import axios from 'axios'
 
 function loginAPI()
@@ -50,12 +49,12 @@ function* Signup()
 function* watchLogin()
 {
   
-    takeLatest(LOG_IN_REQUEST,login);
+    yield takeLatest(LOG_IN_REQUEST,login);
 }
 
 function* watchSignUp()
 {
-    yield takeEvery(LOG_IN_REQUEST,signup)
+    yield takeEvery(SIGN_UP_REQUEST,Signup)
 }
 
 

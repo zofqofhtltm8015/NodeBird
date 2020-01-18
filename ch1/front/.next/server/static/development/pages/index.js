@@ -119,20 +119,32 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 const PostCard = ({
   post
 }) => {
+  const {
+    me
+  } = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.user);
+  const {
+    commentAdded
+  } = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.post);
   const onSubmitComment = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(e => {
     e.preventDefault();
 
     if (!me) {
-      alert("로그인이 필요합니다.");
-    } else {
-      dispatch({
-        type: _reducers_post__WEBPACK_IMPORTED_MODULE_3__["ADD_COMMENT_REQUEST"]
-      });
+      return alert("로그인이 필요합니다.");
     }
-  }, []);
+
+    return dispatch({
+      type: _reducers_post__WEBPACK_IMPORTED_MODULE_3__["ADD_COMMENT_REQUEST"],
+      data: {
+        postId: post.id
+      }
+    });
+  }, [me && me.id]);
   const onChangeComment = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(e => {
     setCommentText(e.target.value);
   }, []);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    setCommentText('');
+  }, [commentAdded == true]);
   const {
     0: commentFormOpened,
     1: setCommentFormOpened
@@ -141,17 +153,14 @@ const PostCard = ({
     0: commentText,
     1: setCommentText
   } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])('');
-  const {
-    me
-  } = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.user);
   const dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useDispatch"])();
-  const onToggleComent = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(() => {
+  const onToggleComment = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(() => {
     setCommentFormOpened(prev => !prev);
   }, []);
   return __jsx("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 44
+      lineNumber: 52
     },
     __self: undefined
   }, __jsx(antd__WEBPACK_IMPORTED_MODULE_1__["Card"], {
@@ -161,7 +170,7 @@ const PostCard = ({
       src: post.img,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 47
+        lineNumber: 55
       },
       __self: undefined
     }),
@@ -170,7 +179,7 @@ const PostCard = ({
       key: "retweet",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 49
+        lineNumber: 57
       },
       __self: undefined
     }), __jsx(antd__WEBPACK_IMPORTED_MODULE_1__["Icon"], {
@@ -178,16 +187,16 @@ const PostCard = ({
       key: "heart",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 50
+        lineNumber: 58
       },
       __self: undefined
     }), __jsx(antd__WEBPACK_IMPORTED_MODULE_1__["Icon"], {
       type: "message",
       key: "message",
-      onClick: onToggleComent,
+      onClick: onToggleComment,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 51
+        lineNumber: 59
       },
       __self: undefined
     }), __jsx(antd__WEBPACK_IMPORTED_MODULE_1__["Icon"], {
@@ -195,27 +204,27 @@ const PostCard = ({
       key: "ellipsis",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 52
+        lineNumber: 60
       },
       __self: undefined
     })],
     extra: __jsx(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 55
+        lineNumber: 63
       },
       __self: undefined
     }, "\uD314\uB85C\uC6B0"),
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 45
+      lineNumber: 53
     },
     __self: undefined
   }, __jsx(antd__WEBPACK_IMPORTED_MODULE_1__["Card"].Meta, {
     avatar: __jsx(antd__WEBPACK_IMPORTED_MODULE_1__["Avatar"], {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 57
+        lineNumber: 65
       },
       __self: undefined
     }, post.user.nickname[0]),
@@ -223,29 +232,30 @@ const PostCard = ({
     description: post.content,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 57
+      lineNumber: 65
     },
     __self: undefined
   })), commentFormOpened && __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, __jsx(antd__WEBPACK_IMPORTED_MODULE_1__["Form"], {
     onSubmit: onSubmitComment,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 64
+      lineNumber: 72
     },
     __self: undefined
   }, __jsx(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 65
+      lineNumber: 73
     },
     __self: undefined
   }, __jsx(antd__WEBPACK_IMPORTED_MODULE_1__["Input"].TextArea, {
     rows: 4,
     value: commentText,
+    required: true,
     onChange: onChangeComment,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 66
+      lineNumber: 74
     },
     __self: undefined
   })), __jsx(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
@@ -253,39 +263,38 @@ const PostCard = ({
     htmlType: "submit",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 68
+      lineNumber: 76
     },
     __self: undefined
   }, "\uC090\uC57D")), __jsx(antd__WEBPACK_IMPORTED_MODULE_1__["List"], {
     header: `${post.Comments ? post.Comments.length : 0}  댓글`,
     itemLayout: "horizontal",
-    dataSource: post.Comment || [],
+    dataSource: post.Comments || [],
     renderItem: item => __jsx("li", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 75
+        lineNumber: 82
       },
       __self: undefined
     }, __jsx(antd__WEBPACK_IMPORTED_MODULE_1__["Comment"], {
-      author: item.User.nickname,
+      author: item.user.nickname,
       avatar: __jsx(antd__WEBPACK_IMPORTED_MODULE_1__["Avatar"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 78
+          lineNumber: 85
         },
         __self: undefined
-      }, item.User.nickname[0]),
+      }, item.user.nickname[0]),
       content: item.content,
-      datatime: item.createdAt,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 76
+        lineNumber: 83
       },
       __self: undefined
     })),
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 71
+      lineNumber: 78
     },
     __self: undefined
   })));
@@ -613,7 +622,7 @@ const Home = () => {
 /*!**************************!*\
   !*** ./reducers/post.js ***!
   \**************************/
-/*! exports provided: initalState, LOAD_MAIN_POSTS_REQUEST, LOAD_MAIN_POSTS_SUCCESS, LOAD_MAIN_POSTS_FAILURE, LOAD_HASHING_POSTS_REQUEST, LOAD_HASHING_POSTS_SUCCESS, LOAD_HASHING_POSTS_FAILURE, LOAD_USER_POSTS_REQUEST, LOAD_USER_POSTS_SUCCESS, LOAD_USER_POSTS_FAILURE, UPLOAD_IMAGE_REQUEST, UPLOAD_IMAGE_SUCCESS, UPLOAD_IMAGE_FAILURE, REMOVE_OMAGE, LIKE_POST_REQUEST, LIKE_POST_SUCCESS, LIKE_POST_FAILURE, UNLIKE_POST_REQUEST, UNLIKE_POST_SUCCESS, UNLIKE_POST_FAILURE, ADD_COMMENT_REQUEST, ADD_COMMENT_SUCUESS, ADD_COMMENT_FAILURE, RETWEET_REQUEST, RETWEET_SUCCESS, RETWEET_FAILURE, REMOVE_POST_REQUEST, REMOVE_POST_SUCCESS, REMOVE_POST_FAILURE, REMOVE_IMAGE, ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE, default */
+/*! exports provided: initalState, LOAD_MAIN_POSTS_REQUEST, LOAD_MAIN_POSTS_SUCCESS, LOAD_MAIN_POSTS_FAILURE, LOAD_HASHING_POSTS_REQUEST, LOAD_HASHING_POSTS_SUCCESS, LOAD_HASHING_POSTS_FAILURE, LOAD_USER_POSTS_REQUEST, LOAD_USER_POSTS_SUCCESS, LOAD_USER_POSTS_FAILURE, UPLOAD_IMAGE_REQUEST, UPLOAD_IMAGE_SUCCESS, UPLOAD_IMAGE_FAILURE, REMOVE_OMAGE, LIKE_POST_REQUEST, LIKE_POST_SUCCESS, LIKE_POST_FAILURE, UNLIKE_POST_REQUEST, UNLIKE_POST_SUCCESS, UNLIKE_POST_FAILURE, ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE, RETWEET_REQUEST, RETWEET_SUCCESS, RETWEET_FAILURE, REMOVE_POST_REQUEST, REMOVE_POST_SUCCESS, REMOVE_POST_FAILURE, REMOVE_IMAGE, ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -639,7 +648,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UNLIKE_POST_SUCCESS", function() { return UNLIKE_POST_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UNLIKE_POST_FAILURE", function() { return UNLIKE_POST_FAILURE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_COMMENT_REQUEST", function() { return ADD_COMMENT_REQUEST; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_COMMENT_SUCUESS", function() { return ADD_COMMENT_SUCUESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_COMMENT_SUCCESS", function() { return ADD_COMMENT_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_COMMENT_FAILURE", function() { return ADD_COMMENT_FAILURE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RETWEET_REQUEST", function() { return RETWEET_REQUEST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RETWEET_SUCCESS", function() { return RETWEET_SUCCESS; });
@@ -681,12 +690,14 @@ const initalState = {
   imagePath: [],
   //미리보기 이미지 경로
   mainPosts: [{
+    id: 1,
     user: {
       id: 1,
       nickname: '제로초'
     },
     content: '첫 번째 게시글',
-    img: 'https://wallpapercave.com/wp/wp2195776.jpg'
+    img: 'https://wallpapercave.com/wp/wp2195776.jpg',
+    Comments: []
   }],
   addPostErrorReason: false,
   isAddingPost: false,
@@ -715,7 +726,7 @@ const UNLIKE_POST_REQUEST = 'LIKE_POST_REQUEST';
 const UNLIKE_POST_SUCCESS = 'LIKE_POST_SUCCESS';
 const UNLIKE_POST_FAILURE = 'LIKE_POST_FAILURE';
 const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
-const ADD_COMMENT_SUCUESS = 'ADD_COMMENT_SUCUESS';
+const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
 const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
 const RETWEET_REQUEST = 'RETWEET_REQUEST';
 const RETWEET_SUCCESS = 'RETWEET_SUCCESS';
@@ -729,6 +740,7 @@ const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
 const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
 const ADD_DUMMY = 'ADD_DUMMY';
 const dummyComment = {
+  id: 1,
   user: {
     id: 1,
     nickname: "더미"
@@ -746,6 +758,7 @@ const addDummy = {
   }
 };
 const dummyPost = {
+  id: 2,
   user: {
     id: 1,
     nickname: "제로초"
@@ -763,13 +776,6 @@ const reducer = (state = initalState, action) => {
 
     case ADD_POST_SUCCESS:
       {
-        const postIndex = state.mainPosts.findIndex(v => v.id === action.data.postId);
-        const post = state.mainPosts[postIndex];
-        const Comments = [...post.Comments, action.data.Comments];
-        const mainPosts = [...state.mainPosts];
-        mainPosts[PostIndex] == _objectSpread({}, post, {
-          Comments
-        });
         return _objectSpread({}, state, {
           isAddingPost: false,
           mainPosts: [dummyPost, ...state.mainPosts],
@@ -779,9 +785,26 @@ const reducer = (state = initalState, action) => {
 
     case ADD_POST_FAILURE:
       {
-        return {
+        return _objectSpread({}, state, {
           isAddingPost: false
-        };
+        });
+      }
+
+    case ADD_COMMENT_SUCCESS:
+      {
+        const postIndex = state.mainPosts.findIndex(v => v.id === action.data.postId);
+        console.log(postIndex);
+        const post = state.mainPosts[postIndex];
+        const Comments = [...post.Comments, dummyComment];
+        const mainPosts = [...state.mainPosts];
+        mainPosts[postIndex] = _objectSpread({}, post, {
+          Comments
+        });
+        return _objectSpread({}, state, {
+          isAddingComment: false,
+          mainPosts,
+          CommentAdded: true
+        });
       }
 
     case ADD_COMMENT_REQUEST:
@@ -790,18 +813,11 @@ const reducer = (state = initalState, action) => {
         CommentAdded: false
       });
 
-    case ADD_COMMENT_SUCCESS:
-      return _objectSpread({}, state, {
-        isAddingComment: false,
-        mainPosts: [dummyPost, ...state.mainPosts],
-        CommentAdded: true
-      });
-
     case ADD_COMMENT_FAILURE:
       {
-        return {
+        return _objectSpread({}, state, {
           isAddingComment: false
-        };
+        });
       }
 
     default:
@@ -892,6 +908,7 @@ const initialState = {
   loginData: {}
 };
 const dummyUser = {
+  id: 1,
   nickname: '제로초',
   Post: [],
   Followings: [],

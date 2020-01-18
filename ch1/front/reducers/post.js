@@ -3,13 +3,16 @@ export const initalState ={
         isLoggedIn: true,
         imagePath: [], //미리보기 이미지 경로
         mainPosts: [{
+            id: 1,  
+
             user:{
                 id: 1,
                 nickname: '제로초',
             },
             content: '첫 번째 게시글',
             img: 'https://wallpapercave.com/wp/wp2195776.jpg',
-    
+    Comments: [],
+
         }],
         addPostErrorReason: false,
         isAddingPost: false,
@@ -52,7 +55,7 @@ export const UNLIKE_POST_SUCCESS = 'LIKE_POST_SUCCESS';
 export const UNLIKE_POST_FAILURE = 'LIKE_POST_FAILURE';
 
 export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
-export const ADD_COMMENT_SUCUESS = 'ADD_COMMENT_SUCUESS';
+export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
 export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
 
 export const RETWEET_REQUEST = 'RETWEET_REQUEST';
@@ -71,6 +74,7 @@ export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
 const ADD_DUMMY = 'ADD_DUMMY';
 
 const dummyComment = {
+    id:1,
     user: {
         id: 1,
         nickname: "더미"
@@ -91,6 +95,7 @@ const dummyComment = {
 
 
 const dummyPost = {
+    id: 2,
     user: 
     {
         id: 1,
@@ -115,11 +120,7 @@ const reducer = (state = initalState, action) =>
 
         case ADD_POST_SUCCESS:
             { 
-                const postIndex = state.mainPosts.findIndex(v=>v.id === action.data.postId);
-                const post = state.mainPosts[postIndex];
-                const Comments = [...post.Comments, action.data.Comments];
-                const mainPosts = [...state.mainPosts];
-                mainPosts[PostIndex] == {...post,Comments};
+   
             return{
                 ...state,
                 isAddingPost: false,
@@ -129,12 +130,34 @@ const reducer = (state = initalState, action) =>
 
             }
         }
+
+
+
+        
         case ADD_POST_FAILURE:
         {
+            
             return{ 
+                ...state,
+
                 isAddingPost: false,
             }
 
+        }   
+        case ADD_COMMENT_SUCCESS:
+            {   
+                const postIndex = state.mainPosts.findIndex(v=>v.id === action.data.postId);
+                console.log(postIndex);
+                const post = state.mainPosts[postIndex];
+                const Comments = [...post.Comments, dummyComment];
+                const mainPosts = [...state.mainPosts];
+                mainPosts[postIndex] = {...post,Comments};
+         return{  
+             ...state,
+            isAddingComment: false,
+            mainPosts,
+            CommentAdded : true,
+            }
         }
         case ADD_COMMENT_REQUEST:
             return{
@@ -144,18 +167,11 @@ const reducer = (state = initalState, action) =>
 
             };
 
-        case ADD_COMMENT_SUCCESS:
-            return{
-                ...state,
-                isAddingComment: false,
-                mainPosts: [dummyPost,...state.mainPosts],
-                CommentAdded : true,
-
-            }
 
         case ADD_COMMENT_FAILURE:
         {
             return{ 
+                ...state,
                 isAddingComment: false,
             }
         }

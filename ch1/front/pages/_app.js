@@ -1,7 +1,6 @@
   
 import React from 'react';
 import Head from 'next/head';
-import PropTypes from 'prop-types';
 import withRedux from 'next-redux-wrapper';
 import { applyMiddleware, compose, createStore } from 'redux';
 import { Provider } from 'react-redux';

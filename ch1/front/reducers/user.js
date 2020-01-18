@@ -14,6 +14,7 @@ export const initialState ={
 };
 const dummyUser =
 {
+    id:1,
     nickname: '제로초',
     Post: [],
     Followings: [],

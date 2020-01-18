@@ -13,6 +13,11 @@ export const initalState ={
         }],
         addPostErrorReason: false,
         isAddingPost: false,
+        postAdded : false,
+
+        addCommentErrorReason: false,
+        isAddingComment: false,
+        CommentAdded : false,
     
 };
 
@@ -60,42 +65,100 @@ export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE';
 
 export const REMOVE_IMAGE = 'REMOVE_IMAGE';
 
-const ADD_POST_REQUSET = 'ADD_POST_REQUSET';
-const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
-const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
+export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
+export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
+export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
 const ADD_DUMMY = 'ADD_DUMMY';
 
-export const addPost ={
-    type: ADD_POST_REQUSET,
-};
-
-export const addDummy = {
+const dummyComment = {
+    user: {
+        id: 1,
+        nickname: "더미"
+    },
+    content: "더미의 댓글"
+}
+ const addDummy = {
     type: ADD_DUMMY,
     data: {
         content: 'Hello',
         UserId: 1,
-        User: {
+        user: {
             nickname: '제로초',
         },
+        
     },
 };
+
+
+const dummyPost = {
+    user: 
+    {
+        id: 1,
+        nickname: "제로초",
+    },
+    content: "저는 더미입니다.",
+}
+
+
 
 const reducer = (state = initalState, action) =>
 {
     switch (action.type)
     {
-        case ADD_POST_REQUSET:
+        case ADD_POST_REQUEST:
             return{
                 ...state,
-                
+                isAddingPost: true,
+                postAdded : false,
+
             };
-        case ADD_DUMMY:
-            {
-                return{
-                    ...state,
-                    mainPosts: [action.data,...state.mainPosts],
-                }
+
+        case ADD_POST_SUCCESS:
+            { 
+                const postIndex = state.mainPosts.findIndex(v=>v.id === action.data.postId);
+                const post = state.mainPosts[postIndex];
+                const Comments = [...post.Comments, action.data.Comments];
+                const mainPosts = [...state.mainPosts];
+                mainPosts[PostIndex] == {...post,Comments};
+            return{
+                ...state,
+                isAddingPost: false,
+                mainPosts: [dummyPost,...state.mainPosts],
+                postAdded : true,
+            
+
+            }
+        }
+        case ADD_POST_FAILURE:
+        {
+            return{ 
+                isAddingPost: false,
+            }
+
+        }
+        case ADD_COMMENT_REQUEST:
+            return{
+                ...state,
+                isAddingComment: true,
+                CommentAdded : false,
+
             };
+
+        case ADD_COMMENT_SUCCESS:
+            return{
+                ...state,
+                isAddingComment: false,
+                mainPosts: [dummyPost,...state.mainPosts],
+                CommentAdded : true,
+
+            }
+
+        case ADD_COMMENT_FAILURE:
+        {
+            return{ 
+                isAddingComment: false,
+            }
+        }
 
             default:
                 {

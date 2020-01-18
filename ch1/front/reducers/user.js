@@ -1,6 +1,6 @@
 export const initialState ={
     isLoggedIn: false,
-    me: {},
+    me: null,
     isLoggedOut: false,
     isLoggingIn: false,
     logInErrorReason: '',
@@ -105,7 +105,17 @@ export const signRequestAction = data =>({
             {
                 return{
                     ...state,
+                    isLoggeding: false,
+
+
+                };
+            }
+            case LOG_OUT_SUCCESS:
+            {
+                return{
+                    ...state,
                     isLoggedIn: false,
+                    
 
                 };
             }
@@ -133,9 +143,7 @@ export const signRequestAction = data =>({
             {
                 return{
                     ...state,
-                    signedUp: false,
                     isSigningUp: true,
-                    signUpErrorReason: '',
 
                 }
             }
@@ -145,15 +153,12 @@ export const signRequestAction = data =>({
                         ...state,
                         signedUp: true,
                         isSigningUp: false,
-                        signUpErrorReason: '',
                     }
             }
             case SIGN_UP_FAILURE:
             {
                 return{
                     ...state,
-                    signedUp: false,
-                    isSigningUp: false,
                     signUpErrorReason: action.error,
 
                 }

@@ -1,7 +1,8 @@
-import React,{useState,useCallback} from 'react';
+import React,{useState,useCallback,useEffect} from 'react';
+import router from 'next/router'
 
 import { Form, Input,Checkbox,Button } from 'antd';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signUpAction } from '../reducers/user';
 
  const signup = () =>
@@ -23,6 +24,7 @@ import { signUpAction } from '../reducers/user';
         {
             return setPasswordError(true);
         }
+     
         if(!term)
         {
             return setTermError(true);
@@ -60,15 +62,22 @@ import { signUpAction } from '../reducers/user';
     
     const onChangePasswordCheck = useCallback((e) =>
     {
-        setPasswordError(e.target.value !== password);
+        setPasswordCheck(e.target.value);
 
-            setPasswordCheck(e.target.value);
+        setPasswordError(e.target.value !== password);
     },[passwordCheck]);
     const onChangeTerm = useCallback((e) => {
         setTermError(false);
         setTerm(e.target.checked);
     },[]);
+    
+    const {me,isSigningUp} = useSelector(state => state.user);
 
+    useEffect(() => {
+    if(me){
+        alert('로그인 했으니 메인페이지로 이동합니다.');
+        router.push('/');
+    }}, [me && me.id]);
     
 
     return(
@@ -97,7 +106,7 @@ import { signUpAction } from '../reducers/user';
                         <label htmlFor="user-passCheck">패스워드 체크</label>
                         <br />
                         <Input type="password" name="user-passCheck" value={passwordCheck} required onChange={onChangePasswordCheck}></Input>
-                        {passwordError &&  <div style={{color:'red'}}>패스워드가 일치하지 않습니다.</div>}
+                        {passwordError  &&  <div style={{color:'red'}}>패스워드가 일치하지 않습니다.</div>}
 
                     </div>
                 <div>

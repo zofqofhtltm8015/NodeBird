@@ -5,7 +5,6 @@ import PostCard from '../components/PostCard';
 import { useDispatch,useSelector } from 'react-redux';
 import {LOG_IN,LOG_OUT,loginAction,logoutAction} from '../reducers/user'
 
-
 const Home = () =>
 {
    
@@ -15,7 +14,6 @@ const Home = () =>
 
     return(
         <div>
-          {isLoggedIn ? <div>로그인 했습니다 :  {me.nickname} </div>: <div>로그아웃했습니다.</div>}
             {isLoggedIn&& <PostForm />}
                 {mainPosts.map((c) =>
                 {

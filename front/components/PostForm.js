@@ -44,7 +44,7 @@ const PostForm = () =>
                     {
                         
                             <div key={v} style={{display: 'inline-block'}}>
-                                <img src={'https://localhost:3000/' + v} style={{width: '200px'}} alt={v}/>
+                                <img src={'https://localhost:3065/' + v} style={{width: '200px'}} alt={v}/>
                                 <div>
                                     <Button>제거</Button>
                                 </div>

@@ -11,10 +11,11 @@ function loginAPI()
     //서버에 요청을 보내는 부분
 }
 
-function signUpAPI()
+function signUpAPI(signUpData)
 {
-    
-    
+    console.log(signUpData);
+    return axios.post('http://localhost:3065/api/user/',signUpData)    
+
 }
 
 function* login()
@@ -34,11 +35,13 @@ function* login()
         })
     }
 }
-function* Signup()
+function* Signup(action)
 {
     try{
         //    yield call(signUpAPI);
-        yield delay(100);
+        console.log(`action.data :`);
+        console.log(action.data);
+        yield call(signUpAPI,action.data)
         yield put({
             type: SIGN_UP_SUCCESS,
         })

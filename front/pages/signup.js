@@ -3,7 +3,7 @@ import router from 'next/router'
 
 import { Form, Input,Checkbox,Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { signUpAction } from '../reducers/user';
+import { signUpAction, SIGN_UP_REQUEST } from '../reducers/user';
 
  const signup = () =>
 {
@@ -29,15 +29,6 @@ import { signUpAction } from '../reducers/user';
         {
             return setTermError(true);
         }
-        dispatch(signUpAction(
-            {
-                id,
-                nick,
-                password,
-                
-            }
-        ));
-
         console.log({
             id,
             nick,
@@ -46,6 +37,19 @@ import { signUpAction } from '../reducers/user';
             term
              
         })
+        return dispatch(
+            {
+                type: SIGN_UP_REQUEST,
+                data:
+                {
+                    'userId' : id,
+                    'password': password,
+                    'nickname': nick,
+                }
+            }
+        )
+
+      
     },[password,passwordCheck,term]);
 
     const onChangeID = useCallback((e) => {

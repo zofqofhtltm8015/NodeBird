@@ -99,7 +99,7 @@ export const signRequestAction = data =>({
                     loginData: action.data,
                     isLoading : true,
                     isLoggingIn: true,
-                    isLoading: true,
+                    isLoading: true,    
                 };
             }
         case LOG_OUT_REQUEST:

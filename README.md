@@ -2,4 +2,6 @@
 ---
 
 
-ZeroChoi NodeBird를 만들어 봤습니다. 
+ZeroCho NodeBird를 만들어 봤습니다. 
+
+
